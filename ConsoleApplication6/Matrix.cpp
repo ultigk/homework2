@@ -57,9 +57,12 @@ void TestMatrix()
 {
     std::cerr << "----------------------" << std::endl;
     int fails_count = 0;
+    Matrix testmatrix(2, 2);
 
-    ASSERT_EQUAL(matrix1(matrix_height, matrix_width), matrix2(matrix_height, matrix_width));
-    //ASSERT_EQUAL(Matrix(0, 0), Matrix(0, 0));
+    ASSERT_EQUAL(testmatrix.GetValue(0, 0), 0);
+    ASSERT_EQUAL(testmatrix.GetValue(0, 1), 0);
+    ASSERT_EQUAL(testmatrix.GetValue(1, 0), 0);
+    ASSERT_EQUAL(testmatrix.GetValue(1, 0), 0);
    
     if (fails_count == 0)
     {
@@ -82,6 +85,7 @@ void TestGetHeight()
     std::cerr << "----------------------" << std::endl;
     int fails_count = 0;
 
+    Matrix testmatrix(2, 2);
     ASSERT_EQUAL(matrix1.GetHeight(), matrix_height);
 
     if (fails_count == 0)
@@ -161,9 +165,8 @@ Matrix Matrix::Transpose() const
         {
             res.SetValue(y, x, data_[x][y]);
         }
-        return res;
     }
-    return Matrix(0, 0); // ñîçäàåì íóëåâóþ, ÷òîáû ÷òî-òî âåðíóòü
+    return res;
 }
 
 void TestTranspose()
