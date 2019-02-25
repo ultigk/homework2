@@ -41,14 +41,15 @@ return 0;
 int main()
 {
     LOG_DURATION("main");
-    int matrix_height = 0;
-    int matrix_width = 0;
-
+    int matrix_height = 1000;
+    int matrix_width = 1000;
     std::cout << "Input matrix_height_1 and matrix_width_1: " << std::endl;
     std::cin >> matrix_height >> matrix_width;
     Matrix matrix1(matrix_height, matrix_width);
     std::cout << "Input matrix1 elements" << std::endl;
     std::cin >> matrix1;
+
+    std::cout << "matrix1 transposed: " << matrix1.Transpose() << std::endl;
 
     std::cout << "Input matrix_height_2 and matrix_width_2: " << std::endl;
     std::cin >> matrix_height >> matrix_width;
@@ -59,6 +60,14 @@ int main()
     Matrix res = matrix1 * matrix2;
     std::cout << "Matrix1 * matrix2 = " << std::endl;
     std::cout << res << std::endl;
+
+    TestMatrix();
+    TestGetHeight();
+    TestGetWidth();
+    TestGetValue();
+    TestSetValue();
+    TestTranspose();
+    TestMultiply();
 
     return 0;
 }

@@ -31,9 +31,9 @@ std::ostream& operator << (std::ostream& output_stream, const Matrix& matrix)
     {
         for (size_t x = 0; x < matrix.GetWidth(); x++)
         {
-            output_stream << matrix.GetValue(y, x) << std::endl;
-            //matrix.SetValue(y, x, temp_int);
+            output_stream << matrix.GetValue(y, x) << " ";
         }
+        std::cout << std::endl;
     }
     return output_stream;
 }
@@ -53,9 +53,46 @@ Matrix::Matrix(const size_t height, const size_t width)
     }
 }
 
+void TestMatrix()
+{
+    std::cerr << "----------------------" << std::endl;
+    int fails_count = 0;
+
+    ASSERT_EQUAL(matrix1(matrix_height, matrix_width), matrix2(matrix_height, matrix_width));
+    //ASSERT_EQUAL(Matrix(0, 0), Matrix(0, 0));
+   
+    if (fails_count == 0)
+    {
+        std::cerr << "TestMatrix: OK" << std::endl;
+    }
+    else
+    {
+        std::cerr << "TestMatrix fails. fails_count = " << fails_count << std::endl;
+    }
+    std::cerr << "----------------------" << std::endl;
+}
+
 size_t Matrix::GetHeight() const
 {
     return data_.size();
+}
+
+void TestGetHeight()
+{
+    std::cerr << "----------------------" << std::endl;
+    int fails_count = 0;
+
+    ASSERT_EQUAL(matrix1.GetHeight(), matrix_height);
+
+    if (fails_count == 0)
+    {
+        std::cerr << "TestGetHeight: OK" << std::endl;
+    }
+    else
+    {
+        std::cerr << "TestGetHeight fails. fails_count = " << fails_count << std::endl;
+    }
+    std::cerr << "----------------------" << std::endl;
 }
 
 size_t Matrix::GetWidth() const
@@ -67,10 +104,45 @@ size_t Matrix::GetWidth() const
     return 0;
 }
 
+void TestGetWidth()
+{
+    std::cerr << "----------------------" << std::endl;
+    int fails_count = 0;
+
+    ASSERT_EQUAL(matrix1.GetWidth(), matrix_width);
+
+    if (fails_count == 0)
+    {
+        std::cerr << "TestGetWidth: OK" << std::endl;
+    }
+    else
+    {
+        std::cerr << "TestGetWidth fails. fails_count = " << fails_count << std::endl;
+    }
+    std::cerr << "----------------------" << std::endl;
+}
+
 int Matrix::GetValue(const size_t height_index, const size_t width_index) const
 {
-    int value_ = data_[height_index][width_index];
-    return value_;
+    return data_[height_index][width_index];
+}
+
+void TestGetValue()
+{
+    std::cerr << "----------------------" << std::endl;
+    int fails_count = 0;
+
+    ASSERT_EQUAL(matrix1.GetValue(0, 0), matrix1[0][0]);
+
+    if (fails_count == 0)
+    {
+        std::cerr << "TestGetValue: OK" << std::endl;
+    }
+    else
+    {
+        std::cerr << "TestGetValue fails. fails_count = " << fails_count << std::endl;
+    }
+    std::cerr << "----------------------" << std::endl;
 }
 
 void Matrix::SetValue(const size_t height_index, const size_t width_index,
@@ -79,10 +151,10 @@ void Matrix::SetValue(const size_t height_index, const size_t width_index,
     data_[height_index][width_index] = value;
 }
 
+
 Matrix Matrix::Transpose() const
 {
-    //Matrix res[matrica[0].size()][matrix.size()];
-    Matrix res(data_[0].size() /*height*/, data_.size() /*width*/);
+    Matrix res(GetHeight(), GetWidth());
     for (size_t x = 0; x < res.GetWidth(); x++)
     {
         for (size_t y = 0; y < res.GetHeight(); y++)
@@ -94,36 +166,68 @@ Matrix Matrix::Transpose() const
     return Matrix(0, 0); // ñîçäàåì íóëåâóþ, ÷òîáû ÷òî-òî âåðíóòü
 }
 
+void TestTranspose()
+{
+    std::cerr << "----------------------" << std::endl;
+    int fails_count = 0;
+
+    ASSERT_EQUAL(matrix1.Transpose(), matrix2.Transpose());
+
+    if (fails_count == 0)
+    {
+        std::cerr << "TestTranspose: OK" << std::endl;
+    }
+    else
+    {
+        std::cerr << "TestTranspose fails. fails_count = " << fails_count << std::endl;
+    }
+    std::cerr << "----------------------" << std::endl;
+}
 
 
 Matrix Matrix::operator * (const Matrix& rhs)
 {
-    /*if (data_[0].size != rhs.GetHeight())
+    if (GetWidth() != rhs.GetHeight())
     {
     std::cout << "Óìíîæåíèå íåâîçìîæíî! " << std::endl;
     Matrix res(0, 0);
     return res;
-    }*/
-    Matrix res(data_.size(), rhs.GetWidth());
+    }
+    Matrix res(GetHeight(), rhs.GetWidth());
     int temp = 0;
-    //Matrix3 = new size_t*[Matrix1.GetHeight()];
-    data_.reserve(data_.size());
-    for (size_t y = 0; y < data_.size(); y++)
+    data_.reserve(GetHeight());
+    for (size_t y = 0; y < GetHeight(); y++)
     {
-        //Matrix3[i] = new size_t[Matrix2.GetWidth()];
         data_.reserve(rhs.GetWidth());
         for (size_t x = 0; x < rhs.GetWidth(); x++)
         {
-            //Matrix3[i][j] = 0;
-            data_.reserve(data_[0].size());
-            for (size_t z = 0; z < data_[0].size(); z++)
+            data_.reserve(GetWidth());
+            for (size_t z = 0; z < GetWidth(); z++)
             {
                 temp += data_[y][z] * rhs.GetValue(x, z);
             }
-            //res[y][x] = temp;
             res.SetValue(y, x, temp);
             temp = 0;
         }
     }
     return res;
 }
+
+void TestOperator()
+{
+    std::cerr << "----------------------" << std::endl;
+    int fails_count = 0;
+
+    ASSERT_EQUAL(matrix1*matrix2, matrix2*matrix1);
+
+    if (fails_count == 0)
+    {
+        std::cerr << "TestOperator*: OK" << std::endl;
+    }
+    else
+    {
+        std::cerr << "TestOperator* fails. fails_count = " << fails_count << std::endl;
+    }
+    std::cerr << "----------------------" << std::endl;
+}
+
