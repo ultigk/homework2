@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include "profile.h"
 #include "matrix.h"
@@ -49,7 +49,8 @@ int main()
     std::cout << "Input matrix1 elements" << std::endl;
     std::cin >> matrix1;
 
-    std::cout << "matrix1 transposed: " << matrix1.Transpose() << std::endl;
+    std::cout << "matrix1 transposed: " << std::endl;
+    std::cout << matrix1.Transpose() << std::endl;
 
     std::cout << "Input matrix_height_2 and matrix_width_2: " << std::endl;
     std::cin >> matrix_height >> matrix_width;
@@ -61,13 +62,13 @@ int main()
     std::cout << "Matrix1 * matrix2 = " << std::endl;
     std::cout << res << std::endl;
 
-    TestMatrix();
-    TestGetHeight();
-    TestGetWidth();
-    TestGetValue();
-    TestSetValue();
-    TestTranspose();
-    TestMultiply();
+    void TestMatrix();
+    void TestGetHeight();
+    void TestGetWidth();
+    void TestGetValue();
+    void TestSetValue();
+    void TestTranspose();
+    void TestMultiply();
 
     return 0;
 }
