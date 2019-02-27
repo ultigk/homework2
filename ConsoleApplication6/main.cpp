@@ -212,6 +212,14 @@ void TestMultiply()
 
 int main()
 {
+    TestMatrix();
+    TestGetHeight();
+    TestGetWidth();
+    TestGetValue();
+    TestSetValue();
+    TestTranspose();
+    TestMultiply();
+
     LOG_DURATION("main");
     int matrix_height = 1000;
     int matrix_width = 1000;
@@ -233,14 +241,6 @@ int main()
     Matrix res = matrix1 * matrix2;
     std::cout << "Matrix1 * matrix2 = " << std::endl;
     std::cout << res << std::endl;
-
-    TestMatrix();
-    TestGetHeight();
-    TestGetWidth();
-    TestGetValue();
-    TestSetValue();
-    TestTranspose();
-    TestMultiply();
 
     return 0;
 }

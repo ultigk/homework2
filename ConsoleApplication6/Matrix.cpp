@@ -24,7 +24,7 @@ std::ostream& operator << (std::ostream& output_stream, const Matrix& matrix)
         {
             output_stream << matrix.GetValue(y, x) << " ";
         }
-        std::cout << std::endl;
+        std::cout << "\n";
     }
     return output_stream;
 }
@@ -76,7 +76,7 @@ Matrix Matrix::Transpose() const
     {
         for (size_t y = 0; y < res.GetHeight(); y++)
         {
-            res.SetValue(y, x, data_[x][y]);
+            res.SetValue(y, x, GetValue(x, y));
         }
     }
     return res;
@@ -93,15 +93,12 @@ Matrix Matrix::operator * (const Matrix& rhs)
 
     const Matrix rhs_transposed = rhs.Transpose();
     //rhs.Transpose();
-    Matrix res(GetHeight(), rhs.GetHeight());
+    Matrix res(GetHeight(), rhs.GetWidth());
     int temp = 0;
-    data_.reserve(GetHeight());
-    for (size_t y = 0; y < GetHeight(); y++)
+    for (size_t y = 0; y < res.GetHeight(); y++)
     {
-        data_.reserve(rhs.GetWidth());
-        for (size_t x = 0; x < GetWidth(); x++)
+        for (size_t x = 0; x < res.GetWidth(); x++)
         {
-            data_.reserve(GetWidth());
             for (size_t z = 0; z < GetWidth(); z++)
             {
                 temp += data_[y][z] * rhs_transposed.GetValue(x, z);
