@@ -91,7 +91,8 @@ Matrix Matrix::operator * (const Matrix& rhs)
         return res;
     }
 
-    rhs.Transpose();
+    const Matrix rhs_transposed = rhs.Transpose();
+    //rhs.Transpose();
     Matrix res(GetHeight(), rhs.GetHeight());
     int temp = 0;
     data_.reserve(GetHeight());
@@ -103,7 +104,7 @@ Matrix Matrix::operator * (const Matrix& rhs)
             data_.reserve(GetWidth());
             for (size_t z = 0; z < GetWidth(); z++)
             {
-                temp += data_[y][z] * rhs.GetValue(z, x);
+                temp += data_[y][z] * rhs_transposed.GetValue(x, z);
             }
             res.SetValue(y, x, temp);
             temp = 0;

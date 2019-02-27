@@ -35,11 +35,4 @@ private:
 std::istream& operator >> (std::istream& input_stream, Matrix& matrix);
 std::ostream& operator << (std::ostream& output_stream, const Matrix& matrix);
 
-void TestMatrix();
-void TestGetHeight();
-void TestGetWidth();
-void TestGetValue();
-void TestSetValue();
-void TestTranspose();
-void TestMultiply();
 
